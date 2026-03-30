@@ -3,7 +3,7 @@ name: Build & Deploy to S3
 on:
   push:
     branches:
-      - main # mainブランチへのpush時に実行
+      - main  # mainブランチへのpush時に実行
 
 jobs:
   deploy:
@@ -18,8 +18,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: '20'
+          cache: 'npm'
 
       # 3. 依存パッケージをインストール
       - name: Install dependencies
@@ -46,11 +46,12 @@ jobs:
             --exclude "*.html"
 
           # HTMLファイルはキャッシュなし（常に最新を取得）
+          # ※ --exclude → --include の順で指定しないと HTML が除外されるため注意
           aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} \
             --delete \
             --cache-control "no-cache, no-store, must-revalidate" \
-            --exclude "*"
-            --include "*.html" \
+            --exclude "*" \
+            --include "*.html"
 
       # 7. デプロイ完了の通知
       - name: Notify deploy complete
