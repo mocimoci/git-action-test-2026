@@ -1,0 +1,444 @@
+// ============================================
+// Variables
+// ============================================
+$color-primary: #3b82f6;
+$color-primary-dark: #2563eb;
+$color-text: #1f2937;
+$color-bg: #ffffff;
+$color-gray: #6b7280;
+$color-border: #e5e7eb;
+
+$font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+$breakpoint-md: 768px;
+
+// ============================================
+// Reset & Base
+// ============================================
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-base;
+  color: $color-text;
+  background-color: $color-bg;
+  line-height: 1.6;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ============================================
+// Header
+// ============================================
+.header {
+  border-bottom: 1px solid $color-border;
+  padding: 16px 0;
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $color-text;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    gap: 24px;
+
+    a {
+      color: $color-gray;
+      font-size: 0.9rem;
+
+      &:hover {
+        color: $color-primary;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// ============================================
+// Main
+// ============================================
+.main {
+  min-height: calc(100vh - 130px);
+}
+
+// ============================================
+// Hero
+// ============================================
+.hero {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+
+  &__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__text {
+    font-size: 1.1rem;
+    color: $color-gray;
+    margin-bottom: 32px;
+  }
+}
+
+// ============================================
+// Description
+// ============================================
+.description {
+  margin-top: 48px;
+  padding: 32px;
+  background-color: #fff;
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  &__text {
+    color: $color-gray;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+
+    code {
+      background-color: #f3f4f6;
+      color: $color-primary-dark;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.875rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      color: $color-gray;
+      font-size: 0.95rem;
+      padding-left: 20px;
+      position: relative;
+
+      &::before {
+        content: '✓';
+        color: $color-primary;
+        font-weight: 700;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+}
+
+// ============================================
+// Button
+// ============================================
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  &--primary {
+    background-color: $color-primary;
+    color: #fff;
+
+    &:hover {
+      background-color: $color-primary-dark;
+    }
+  }
+}
+
+// ============================================
+// Guide
+// ============================================
+.guide {
+  padding: 64px 0;
+  background-color: #f9fafb;
+
+  &__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  &__section {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid $color-border;
+  }
+
+  &__text {
+    color: $color-gray;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+
+    code {
+      background-color: #f3f4f6;
+      color: $color-primary-dark;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.875rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+      color: $color-gray;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      padding-left: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      code {
+        background-color: #f3f4f6;
+        color: $color-primary-dark;
+        font-family: 'SFMono-Regular', Consolas, monospace;
+        font-size: 0.875rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__steps {
+    list-style: none;
+    counter-reset: steps;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    li {
+      counter-increment: steps;
+      color: $color-gray;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      padding-left: 32px;
+      position: relative;
+
+      &::before {
+        content: counter(steps);
+        position: absolute;
+        left: 0;
+        top: 1px;
+        width: 22px;
+        height: 22px;
+        background-color: $color-primary;
+        color: #fff;
+        border-radius: 50%;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// ============================================
+// Code Block
+// ============================================
+.code-block {
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid $color-border;
+
+  &__label {
+    background-color: #f3f4f6;
+    color: $color-gray;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-bottom: 1px solid $color-border;
+    letter-spacing: 0.03em;
+  }
+
+  pre {
+    margin: 0;
+    padding: 16px;
+    overflow-x: auto;
+    background-color: #1e1e2e;
+
+    code {
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #cdd6f4;
+    }
+  }
+}
+
+// ============================================
+// Flow
+// ============================================
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 16px;
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 12px 0;
+    border-left: 2px solid $color-border;
+    margin-left: 14px;
+    padding-left: 24px;
+    position: relative;
+
+    &--last {
+      border-left-color: transparent;
+    }
+  }
+
+  &__num {
+    position: absolute;
+    left: -14px;
+    top: 12px;
+    width: 26px;
+    height: 26px;
+    background-color: $color-primary;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 2px;
+
+    strong {
+      font-size: 0.95rem;
+      color: $color-text;
+    }
+
+    span {
+      font-size: 0.875rem;
+      color: $color-gray;
+    }
+  }
+}
+
+// ============================================
+// Badge
+// ============================================
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  letter-spacing: 0.03em;
+
+  &--green {
+    background-color: #dcfce7;
+    color: #166534;
+  }
+
+  &--red {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+
+  &--yellow {
+    background-color: #fef9c3;
+    color: #854d0e;
+  }
+}
+
+// ============================================
+// Footer
+// ============================================
+.footer {
+  border-top: 1px solid $color-border;
+  padding: 24px 0;
+  text-align: center;
+  color: $color-gray;
+  font-size: 0.85rem;
+}

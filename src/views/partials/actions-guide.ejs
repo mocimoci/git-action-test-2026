@@ -1,0 +1,127 @@
+<section class="guide">
+  <div class="guide__inner">
+
+    <!-- YMLの書き方 -->
+    <div class="guide__section">
+      <h2 class="guide__title">YML の書き方・構造</h2>
+      <p class="guide__text">
+        ワークフローファイルは <code>.github/workflows/</code> 以下に <code>.yml</code> 形式で配置します。<br>
+        大きく <strong>3つのブロック</strong> で構成されています。
+      </p>
+      <div class="code-block">
+        <div class="code-block__label">deploy.yml の基本構造</div>
+        <pre><code>name: ワークフローの名前
+
+on:           # ① トリガー：いつ実行するか
+  push:
+    branches:
+      - main  # main ブランチへの push 時
+
+jobs:         # ② ジョブ：実行する処理のまとまり
+  deploy:
+    runs-on: ubuntu-latest  # 実行環境
+
+    steps:    # ③ ステップ：処理を順番に記述
+      - name: 処理の名前
+        run: echo "実行するコマンド"</code></pre>
+      </div>
+      <ul class="guide__list">
+        <li><code>on</code> — トリガーの定義。<code>push</code> 以外に <code>pull_request</code>・<code>schedule</code> なども指定できる</li>
+        <li><code>jobs</code> — 複数のジョブを並列または直列で実行できる</li>
+        <li><code>steps</code> — 各ステップは <code>run</code>（コマンド）か <code>uses</code>（公開アクション）で記述する</li>
+      </ul>
+    </div>
+
+    <!-- Secrets の設定手順 -->
+    <div class="guide__section">
+      <h2 class="guide__title">Secrets の設定手順</h2>
+      <p class="guide__text">
+        API キーやパスワードなど秘密にしたい値は <strong>GitHub Secrets</strong> に登録します。<br>
+        コードに直接書かないことで、情報漏洩を防げます。
+      </p>
+      <ol class="guide__steps">
+        <li>GitHubリポジトリの <strong>Settings</strong> タブを開く</li>
+        <li>左メニューの <strong>Secrets and variables → Actions</strong> を選択</li>
+        <li><strong>New repository secret</strong> ボタンをクリック</li>
+        <li>Name と Value を入力して <strong>Add secret</strong> で保存</li>
+      </ol>
+      <p class="guide__text">登録した値は <code>${{ secrets.シークレット名 }}</code> でYML内から参照できます。</p>
+      <div class="code-block">
+        <div class="code-block__label">このプロジェクトで必要な Secrets</div>
+        <pre><code>AWS_ACCESS_KEY_ID      # IAM アクセスキー ID
+AWS_SECRET_ACCESS_KEY  # IAM シークレットアクセスキー
+AWS_REGION             # 例: ap-northeast-1（東京）
+S3_BUCKET_NAME         # S3 バケット名</code></pre>
+      </div>
+    </div>
+
+    <!-- ワークフロー解説 -->
+    <div class="guide__section">
+      <h2 class="guide__title">このプロジェクトのワークフロー解説</h2>
+      <p class="guide__text">
+        <code>.github/workflows/deploy.yml</code> は main への push をトリガーに、以下の順で実行されます。
+      </p>
+      <div class="flow">
+        <div class="flow__item">
+          <span class="flow__num">1</span>
+          <div class="flow__body">
+            <strong>Checkout</strong>
+            <span>リポジトリのコードを仮想環境に取得</span>
+          </div>
+        </div>
+        <div class="flow__item">
+          <span class="flow__num">2</span>
+          <div class="flow__body">
+            <strong>Setup Node.js</strong>
+            <span>ビルドに使う Node.js をセットアップ</span>
+          </div>
+        </div>
+        <div class="flow__item">
+          <span class="flow__num">3</span>
+          <div class="flow__body">
+            <strong>npm ci</strong>
+            <span>package-lock.json に従って依存パッケージを高速インストール</span>
+          </div>
+        </div>
+        <div class="flow__item">
+          <span class="flow__num">4</span>
+          <div class="flow__body">
+            <strong>npm run build</strong>
+            <span>EJS → HTML・SCSS → CSS に変換して dist/ を生成</span>
+          </div>
+        </div>
+        <div class="flow__item">
+          <span class="flow__num">5</span>
+          <div class="flow__body">
+            <strong>AWS 認証</strong>
+            <span>Secrets から読み込んだキーで AWS に接続</span>
+          </div>
+        </div>
+        <div class="flow__item flow__item--last">
+          <span class="flow__num">6</span>
+          <div class="flow__body">
+            <strong>aws s3 sync</strong>
+            <span>dist/ の中身を S3 バケットに差分アップロード</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions タブの見かた -->
+    <div class="guide__section">
+      <h2 class="guide__title">Actions タブの見かた</h2>
+      <p class="guide__text">
+        GitHub リポジトリの <strong>Actions</strong> タブから、実行中・完了済みのワークフローを確認できます。
+      </p>
+      <ul class="guide__list">
+        <li><span class="badge badge--green">success</span> — すべてのステップが正常に完了した</li>
+        <li><span class="badge badge--red">failure</span> — いずれかのステップでエラーが発生した</li>
+        <li><span class="badge badge--yellow">in progress</span> — 現在実行中</li>
+      </ul>
+      <p class="guide__text">
+        失敗した場合はワークフロー名をクリック → 赤くなったステップを展開すると<strong>エラーログ</strong>を確認できます。
+      </p>
+    </div>
+
+  </div>
+</section>

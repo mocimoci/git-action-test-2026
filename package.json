@@ -1,0 +1,26 @@
+{
+  "name": "action-test",
+  "version": "1.0.0",
+  "description": "Static site with SCSS/EJS, deployed to S3 via GitHub Actions",
+  "scripts": {
+    "dev": "npm run build && npm-run-all --parallel watch:ejs watch:scss serve",
+    "serve": "browser-sync start --server dist --watch --no-notify",
+    "build": "npm run clean && npm run build:ejs && npm run build:scss && npm run copy:assets",
+    "build:ejs": "node scripts/build-ejs.js",
+    "build:scss": "sass src/scss/main.scss dist/css/main.css --style=compressed",
+    "copy:assets": "copyfiles -u 2 \"src/assets/**/*\" dist/assets",
+    "clean": "rimraf dist",
+    "watch": "npm-run-all --parallel watch:ejs watch:scss",
+    "watch:ejs": "nodemon --watch src/views --ext ejs --exec \"npm run build:ejs\"",
+    "watch:scss": "sass --watch src/scss/main.scss:dist/css/main.css"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "copyfiles": "^2.4.1",
+    "ejs": "^3.1.10",
+    "nodemon": "^3.1.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.5",
+    "sass": "^1.77.0"
+  }
+}

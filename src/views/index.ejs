@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <%- include('./partials/head') %>
+  <title>Home | My Site</title>
+</head>
+<body>
+  <%- include('./partials/header') %>
+
+  <main class="main">
+    <section class="hero">
+      <div class="hero__inner">
+        <h1 class="hero__title">GitHub Actions テストページ</h1>
+        <p class="hero__text">GitHub Actions で自動的に AWS S3 にデプロイされます。</p>
+        <a href="https://docs.github.com/ja/actions" class="btn btn--primary">GitHub Actions ドキュメント</a>
+        <div class="description">
+          <h2 class="description__title">GitHub Actions とは</h2>
+          <p class="description__text">
+            GitHub Actions は、コードのプッシュやプルリクエストなどのイベントをトリガーに、
+            テスト・ビルド・デプロイといった一連の処理を自動で実行できる CI/CD ツールです。<br>
+            設定はリポジトリ内の <code>.github/workflows/*.yml</code> に YAML 形式で記述します。
+          </p>
+          <ul class="description__list">
+            <li>コードを push するだけで自動デプロイ</li>
+            <li>Linux / macOS / Windows の仮想環境で実行可能</li>
+            <li>パブリックリポジトリは無料で利用できる</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%- include('./partials/actions-guide') %>
+  <%- include('./partials/footer') %>
+</body>
+</html>
